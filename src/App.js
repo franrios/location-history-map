@@ -4,6 +4,8 @@ import ReactMapGL, { Marker } from "react-map-gl"
 import logo from './logo.svg';
 import './App.css';
 
+const MapboxAccessToken = 'pk.eyJ1IjoiZnJhbnJpb3MiLCJhIjoiY2pibXM5Z2k5M3I4dTMzbHB4NWJkanNyNSJ9.24SqQxgDaPDZMS2YT51AFA'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -26,7 +28,7 @@ class App extends Component {
 
     return <div>
         <ReactMapGL width={width} height={height} latitude={latitude} longitude={longitude} zoom={zoom} onViewportChange={viewport => {
-            const { width, height, latitude, longitude, zoom } = viewport
+            const { latitude, longitude, zoom } = viewport
             this.setState({latitude, longitude, zoom})
             // Optionally call `setState` and use the state to update the map.
           }}>
