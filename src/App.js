@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl"
-import DeckGL, { LineLayer } from "deck.gl"
+import DeckGL, { LineLayer, GridLayer } from "deck.gl"
 
 import logo from "./logo.svg"
 import "./App.css"
@@ -39,25 +39,22 @@ class App extends Component {
       bearing: 0
     }
 
-    const data = [
-      {
-        sourcePosition: [latitude, longitude],
-        targetPosition: [latitude + 0.1, longitude + 0.1]
-      }
-    ]
-    console.log({ locationHistory })
+    const data = locations.map(({ longitudeE7, latitudeE7 }) => ({
+        position: [longitudeE7 / 1e7, latitudeE7 / 1e7]
+      }))
+      console.log(data)
     return (
       <div>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          mapStyle="mapbox://styles/mapbox/basic-v9"
+          mapStyle="mapbox://styles/mapbox/dark-v9"
           onViewportChange={(vp) => this.onViewportChange(vp)}
         >
           <div style={{ position: "absolute", right: 0, bottom: 0 }}>
             <NavigationControl onViewportChange={(vp) => this.onViewportChange(vp)} />
           </div>
-          {locationHistory.map(({ longitudeE7, latitudeE7, timestampMs }) => (
+          {/* {locationHistory.map(({ longitudeE7, latitudeE7, timestampMs }) => (
             <Marker
               key={timestampMs}
               longitude={longitudeE7 / 1e7}
@@ -65,13 +62,14 @@ class App extends Component {
             >
               <div className="marker" />
             </Marker>
-          ))}
+          ))} */}
           <DeckGL
             {...viewport}
             layers={[
-              new LineLayer({
-                id: "line-layer",
-                data
+              new GridLayer({
+                id: "grid-layer",
+                data,
+                cellSize: 500
               })
             ]}
           />
