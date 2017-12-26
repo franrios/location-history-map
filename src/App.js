@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import ReactMapGL, { NavigationControl } from "react-map-gl"
+import ReactMapGL from "react-map-gl"
 import DeckGL, { ArcLayer, GridLayer } from "deck.gl"
 
 import { MAPBOX_ACCESS_TOKEN } from "./.secrets"
+import { Controller } from "./Controller"
 import "./App.css"
 import { getFlightTrips } from "./utils"
 
@@ -10,17 +11,19 @@ const locations = require("./location_history").locations
 const locationHistory = locations.filter(
   (item, i) => i % Math.floor(locations.length / 300) === 0
 )
-
+// media 369766.87845576304
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      latitude: 40.416775,
+      latitude: 40.416775, // Madrid location
       longitude: -3.70379,
       zoom: 3.5,
       gridData: [],
-      arcData: []
-    } //Madrid location
+      arcData: [],
+      showFlights: true,
+      showLocations: true
+    }
   }
 
   componentDidMount() {
@@ -37,7 +40,15 @@ class App extends Component {
   }
 
   render() {
-    const { latitude, longitude, zoom, gridData, arcData } = this.state
+    const {
+      latitude,
+      longitude,
+      zoom,
+      gridData,
+      arcData,
+      showFlights,
+      showLocations
+    } = this.state
     const { innerWidth: width, innerHeight: height } = window
     const viewport = {
       width,
@@ -57,20 +68,23 @@ class App extends Component {
           mapStyle="mapbox://styles/mapbox/dark-v9"
           onViewportChange={vp => this.onViewportChange(vp)}
         >
-          <div style={{ position: "absolute", right: 10, bottom: 10 }}>
-            <NavigationControl
-              onViewportChange={vp => this.onViewportChange(vp)}
-            />
-          </div>
+          <Controller
+            flightEnabled={showFlights}
+            locationEnabled={showLocations}
+            onFlightClicked={() => this.setState({ showFlights: !showFlights })}
+            onLocationClicked={() =>
+              this.setState({ showLocations: !showLocations })
+            }
+          />
           <DeckGL
             {...viewport}
             layers={[
               new GridLayer({
                 id: "grid-layer",
-                data: gridData
+                data: showLocations ? gridData : []
               }),
               new ArcLayer({
-                data: arcData,
+                data: showFlights ? arcData : [],
                 strokeWdith: 3
               })
             ]}
