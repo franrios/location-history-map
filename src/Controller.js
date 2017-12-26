@@ -7,11 +7,13 @@ export function Controller (props) {
     onFlightClicked,
     onLocationClicked,
     showLocations,
-    showFlights
+    showFlights,
+    onViewportChange,
   } = props
+  console.log({props})
 
   return (
-    <div style={{ position: "absolute", right: 10, bottom: 10, zIndex: 100 }}>
+    <div className='controller'>
       <div style={{ marginBottom: 10 }} onClick={() => onFlightClicked()}>
         {!showFlights ? (
           <MDIcons.MdAirplanemodeActive size={25} color="#F0F0F0" />
@@ -26,7 +28,7 @@ export function Controller (props) {
           <MDIcons.MdLocationOff size={25} color="#F0F0F0" />
         )}
       </div>
-      <NavigationControl onViewportChange={vp => this.onViewportChange(vp)} />
+      <NavigationControl onViewportChange={vp => onViewportChange(vp)} />
     </div>
   )
 }

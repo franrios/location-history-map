@@ -5,9 +5,10 @@
   "devDependencies": {
     "react-scripts": "1.0.17"
   },
+  "homepage": "https://franrios.github.io/location-history-map",
   "dependencies": {
     "deck.gl": "^5.0.0",
-    "dotenv": "^4.0.0",
+    "gh-pages": "^1.1.0",
     "luma.gl": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -16,6 +17,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

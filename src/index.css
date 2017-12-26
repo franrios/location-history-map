@@ -10,3 +10,12 @@ body {
   background-color: red;
   border-radius: 5px;
 }
+
+.controller {
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1000;
+}

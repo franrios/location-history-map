@@ -69,12 +69,13 @@ class App extends Component {
           onViewportChange={vp => this.onViewportChange(vp)}
         >
           <Controller
-            flightEnabled={showFlights}
-            locationEnabled={showLocations}
+            showFlights={showFlights}
+            showLocations={showLocations}
             onFlightClicked={() => this.setState({ showFlights: !showFlights })}
             onLocationClicked={() =>
               this.setState({ showLocations: !showLocations })
             }
+            onViewportChange={vp => this.onViewportChange(vp)}
           />
           <DeckGL
             {...viewport}
