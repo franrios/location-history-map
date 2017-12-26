@@ -54,22 +54,13 @@ class App extends Component {
           <div style={{ position: "absolute", right: 0, bottom: 0 }}>
             <NavigationControl onViewportChange={(vp) => this.onViewportChange(vp)} />
           </div>
-          {/* {locationHistory.map(({ longitudeE7, latitudeE7, timestampMs }) => (
-            <Marker
-              key={timestampMs}
-              longitude={longitudeE7 / 1e7}
-              latitude={latitudeE7 / 1e7}
-            >
-              <div className="marker" />
-            </Marker>
-          ))} */}
           <DeckGL
             {...viewport}
             layers={[
               new GridLayer({
                 id: "grid-layer",
                 data,
-                cellSize: 500
+                cellSize: 5000 / zoom
               })
             ]}
           />
