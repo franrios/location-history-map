@@ -1,0 +1,133 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "globals": {
+    "__DEV__": true,
+    "__dirname": false,
+    "__fbBatchedBridgeConfig": false,
+    "afterAll": false,
+    "alert": false,
+    "before": false,
+    "beforeAll": false,
+    "describe": false,
+    "cancelAnimationFrame": false,
+    "cancelIdleCallback": false,
+    "clearImmediate": true,
+    "clearInterval": false,
+    "clearTimeout": false,
+    "console": false,
+    "document": false,
+    "escape": false,
+    "expect": false,
+    "Event": false,
+    "EventTarget": false,
+    "exports": false,
+    "fetch": false,
+    "FormData": false,
+    "global": false,
+    "idx": false,
+    "it": false,
+    "jest": false,
+    "Map": true,
+    "module": false,
+    "navigator": false,
+    "process": false,
+    "Promise": true,
+    "requestAnimationFrame": true,
+    "requestIdleCallback": true,
+    "require": false,
+    "Set": true,
+    "setImmediate": true,
+    "setInterval": false,
+    "setTimeout": false,
+    "window": false,
+    "XMLHttpRequest": false,
+    "pit": false,
+    "ReactComponent": false,
+    "ReactClass": false,
+    "ReactElement": false,
+    "ReactPropsCheckType": false,
+    "ReactPropsChainableTypeChecker": false,
+    "ReactPropTypes": false,
+    "SyntheticEvent": false,
+    "$Either": false,
+    "$All": false,
+    "$Tuple": false,
+    "$Supertype": false,
+    "$Subtype": false,
+    "$Shape": false,
+    "$Diff": false,
+    "$Keys": false,
+    "$Enum": false,
+    "$Exports": false,
+    "$FlowIssue": false,
+    "$FlowFixMe": false,
+    "$FixMe": false
+  },
+  "rules": {
+    "semi": 0,
+    "no-spaced-func": 1,
+    "class-methods-use-this": 0,
+    "space-before-function-paren": ["error", "always"],
+    "consistent-return": 0,
+    "object-shorthand": 0,
+    "func-names": 0,
+    "arrow-body-style": 0,
+    "arrow-parens": 0,
+    "global-require": 0,
+    "comma-dangle": [
+      "warn",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }
+    ],
+    "object-curly-spacing": 0,
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "no-plusplus": 0,
+    "no-case-declarations": 0,
+    "no-use-before-define": 0,
+    "no-underscore-dangle": 0,
+    "no-mixed-operators": 0,
+    "prefer-spread": 0,
+    "camelcase": 0,
+    "default-case": 0,
+    "no-bitwise": 0,
+    "no-irregular-whitespace": 1,
+    "react/no-multi-comp": 0,
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0,
+    "react/jsx-indent-props": 0,
+    "react/jsx-indent": 0,
+    "react/jsx-wrap-multilines": 0,
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/jsx-first-prop-new-line": [
+      "warn",
+      "multiline"
+    ],
+    "react/jsx-closing-bracket-location": 0,
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0
+  }
+}
