@@ -1,34 +1,44 @@
 import React, { Component } from "react"
-import ReactMapGL, { Marker, NavigationControl } from "react-map-gl"
-import DeckGL, { LineLayer, GridLayer } from "deck.gl"
+import ReactMapGL, { NavigationControl } from "react-map-gl"
+import DeckGL, { ArcLayer, GridLayer } from "deck.gl"
 
-import logo from "./logo.svg"
+import { MAPBOX_ACCESS_TOKEN } from "./.secrets"
 import "./App.css"
+import { getFlightTrips } from "./utils"
 
 const locations = require("./location_history").locations
 const locationHistory = locations.filter(
   (item, i) => i % Math.floor(locations.length / 300) === 0
 )
 
-const MAPBOX_ACCESS_TOKEN =
-  "pk.eyJ1IjoiZnJhbnJpb3MiLCJhIjoiY2pibXM5Z2k5M3I4dTMzbHB4NWJkanNyNSJ9.24SqQxgDaPDZMS2YT51AFA"
-
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { latitude: 40.416775, longitude: -3.70379, zoom: 3.5 } //Madrid location
+    this.state = {
+      latitude: 40.416775,
+      longitude: -3.70379,
+      zoom: 3.5,
+      gridData: [],
+      arcData: []
+    } //Madrid location
+  }
+
+  componentDidMount() {
+    const gridData = locations.map(({ longitudeE7, latitudeE7 }) => ({
+      position: [longitudeE7 / 1e7, latitudeE7 / 1e7]
+    }))
+    const arcData = getFlightTrips(locations)
+    this.setState({ gridData, arcData })
   }
 
   onViewportChange(viewport) {
     const { latitude, longitude, zoom } = viewport
     this.setState({ latitude, longitude, zoom })
-    // Optionally call `setState` and use the state to update the map.
   }
 
   render() {
+    const { latitude, longitude, zoom, gridData, arcData } = this.state
     const { innerWidth: width, innerHeight: height } = window
-    const { latitude, longitude, zoom } = this.state
-
     const viewport = {
       width,
       height,
@@ -39,28 +49,29 @@ class App extends Component {
       bearing: 0
     }
 
-    const data = locations.map(({ longitudeE7, latitudeE7 }) => ({
-        position: [longitudeE7 / 1e7, latitudeE7 / 1e7]
-      }))
-      console.log(data)
     return (
       <div>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
           mapStyle="mapbox://styles/mapbox/dark-v9"
-          onViewportChange={(vp) => this.onViewportChange(vp)}
+          onViewportChange={vp => this.onViewportChange(vp)}
         >
-          <div style={{ position: "absolute", right: 0, bottom: 0 }}>
-            <NavigationControl onViewportChange={(vp) => this.onViewportChange(vp)} />
+          <div style={{ position: "absolute", right: 10, bottom: 10 }}>
+            <NavigationControl
+              onViewportChange={vp => this.onViewportChange(vp)}
+            />
           </div>
           <DeckGL
             {...viewport}
             layers={[
               new GridLayer({
                 id: "grid-layer",
-                data,
-                cellSize: 5000 / zoom
+                data: gridData
+              }),
+              new ArcLayer({
+                data: arcData,
+                strokeWdith: 3
               })
             ]}
           />
