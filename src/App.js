@@ -8,9 +8,7 @@ import "./App.css"
 import { getFlightTrips } from "./utils"
 
 const locations = require("./location_history").locations
-const locationHistory = locations.filter(
-  (item, i) => i % Math.floor(locations.length / 300) === 0
-)
+
 // media 369766.87845576304
 class App extends Component {
   constructor(props) {
