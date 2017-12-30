@@ -9,7 +9,6 @@ import { getFlightTrips } from "./utils"
 
 const locations = require("./location_history").locations
 
-// media 369766.87845576304
 class App extends Component {
   constructor(props) {
     super(props)

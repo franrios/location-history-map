@@ -10,7 +10,6 @@ export function Controller (props) {
     showFlights,
     onViewportChange,
   } = props
-  console.log({props})
 
   return (
     <div className='controller'>
